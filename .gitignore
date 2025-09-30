@@ -1,0 +1,12 @@
+.env
+venv/
+
+PRD.md
+TASKS.md
+system_prompt.md
+pull_civitai.sh
+
+.specstory/
+.cursorindexingignore
+.cursorrules
+.cursorignore
