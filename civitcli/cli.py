@@ -7,6 +7,7 @@ import logging
 from typing import Optional, Sequence
 
 from . import __version__
+from .downloader import DownloadError, download_resource
 
 _LOG_FORMAT = "%(levelname)s: %(message)s"
 
@@ -21,7 +22,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--download",
         metavar="URL",
-        help="Download a resource from the provided Civitai URL (future milestone).",
+        help="Download a resource from the provided Civitai URL.",
     )
     parser.add_argument(
         "--render",
@@ -65,12 +66,20 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     _configure_logging(args.verbose)
 
+    exit_code = 0
+
     if args.download:
-        logging.warning("Download functionality is not yet implemented in this milestone.")
+        try:
+            result = download_resource(args.download)
+        except DownloadError as exc:
+            logging.error("Download failed: %s", exc)
+            exit_code = 1
+        else:
+            logging.info("Downloaded %s to %s", result.filename, result.path)
     if args.render:
         logging.warning("Render functionality is not yet implemented in this milestone.")
 
-    return 0
+    return exit_code
 
 
 if __name__ == "__main__":  # pragma: no cover - handled by __main__.py
