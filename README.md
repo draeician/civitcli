@@ -2,7 +2,7 @@
 
 `civitcli` is a command-line utility that helps you manage assets from [Civitai](https://civitai.com) and generate
 `stable-diffusion.cpp` commands from the platform's metadata blocks. The project is in active development, and this
-milestone provides the initial package scaffolding.
+milestone delivers the first iteration of the download workflow.
 
 ## Installation
 
@@ -20,13 +20,32 @@ pipx run --spec . civitcli --help
 
 ## Usage
 
-This milestone focuses on the CLI interface scaffolding. Run the command below to explore the available options:
+Run the command below to explore the available options:
 
 ```bash
 civitcli --help
 ```
 
-Future milestones will enable downloading Civitai resources and rendering `stable-diffusion.cpp` commands.
+### Downloading resources
+
+Provide a direct Civitai download URL to fetch a checkpoint, LoRA, or embedding. Files are saved into the default
+directories defined in the [PRD](PRD.md):
+
+```bash
+civitcli --download "https://civitai.com/api/download/models/<model-id>"
+```
+
+If you have a Civitai API token, expose it via the `CIVITAI_API` environment variable. The CLI forwards the value as an
+HTTP header for authenticated downloads:
+
+```bash
+export CIVITAI_API="your-api-token"
+civitcli --download "https://civitai.com/api/download/models/<model-id>"
+```
+
+Use the `-v` flag for progress information, and increase verbosity with `-vv` when diagnosing issues.
+
+Rendering `stable-diffusion.cpp` commands will arrive in a future milestone.
 
 ## Contributing
 
