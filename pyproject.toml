@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "civitcli"
+version = "0.0.1"
+description = "Command-line tools for working with Civitai resources"
+readme = "README.md"
+authors = [{name = "Civitai CLI Team"}]
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[project.scripts]
+civitcli = "civitcli.__main__:main"
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["civitcli"]
